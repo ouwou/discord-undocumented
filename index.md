@@ -244,3 +244,60 @@ There may be more but this should be all of them
 * twitter
 * xbox
 * youtube
+
+### User Relationships
+
+#### Get User Relationships
+
+GET `/users/@me/relationships`  
+Returns an array of [user objects](https://discord.com/developers/docs/resources/user#user-object) with an extra key `type` representating the [relationship type](#relationship-type)
+
+#### Get Mutual Friends
+
+GET `/users/{user.id}/relationships`  
+Returns an array of [user objects](https://discord.com/developers/docs/resources/user#user-object)
+
+#### Relationship Type
+* None = 0
+* Friend = 1
+* Blocked = 2
+* Pending Incoming = 3
+* Pending Outgoing = 4
+* Implicit = 5 (never observed?)
+
+#### Relationship Object
+
+| Field | Type                                    | Description                                    |
+|-------|-----------------------------------------|------------------------------------------------|
+| id    | snowflake                               | id of the user who the relationship is between |
+| type  | [relationship type](#relationship-type) | type of the relationship                       |
+| 
+
+[Relationship objects](#relationship-object) can be found in the gateway READY event under the field `relationships`
+
+### DMs
+
+#### Create DM
+
+POST `/users/@me/channels`  
+Creates a new DM. Even though the official docs suggest a different request for creating a new DM with one user, the official client still uses a 1-element array.  
+Returns a [channel object](https://discord.com/developers/docs/resources/channel#channel-object)
+
+JSON parameters:
+
+| Field      | Type               | Description                                     |
+|------------|--------------------|-------------------------------------------------|
+| recipients | array of snowflake | array of user ids who should be added to the dm |
+|
+
+#### Close DM
+
+DELETE `/channels/{channel.id}`
+
+#### Add Group DM Recipient
+
+PUT `/channels/{channel.id}/recipients/{user.id}`
+
+#### Remove Group DM Recipient
+
+DELETE `/channels/{channel.id}/recipients/{user.id}`
