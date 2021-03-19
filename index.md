@@ -1,6 +1,37 @@
 * auto-gen TOC:
 {:toc}
 
+### Thread Channels
+
+Drafted [here](https://github.com/discord/discord-api-docs/pull/2693)
+
+Used for ephemeral conversations started from existing channels. Can also be manually archived
+
+Channel Types:  
+PUBLIC_THREAD = 11  
+PRIVATE_THREAD = 12  
+
+<details>
+	<summary>show images</summary>
+	<img src="media/thread_create.png">
+	<img src="media/creating_new_thread.png">
+</details>
+&nbsp;  
+
+### Stage Channels
+  
+Presumably used for allowing limited numbers of members to speak at a given time controlled by "Stage Moderators." Users can raise their hands
+
+Channel Type: GUILD_STAGE_VOICE = 13
+
+<details>
+	<summary>show images</summary>
+	<img src="media/stage_channel_list.png">
+	<img src="media/stage_channel_perms.png">
+	<img src="media/manage_stage_moderators.png">
+</details>
+&nbsp;  
+
 ### Role Member Counts
 
 Retrieves the number of members with each role  
