@@ -11,8 +11,9 @@ Used for ephemeral conversations started from existing channels. Users can join 
 
 #### Create Thread
 
-POST `/channels/{channel.id}/messages/{message.id}/threads`
-Creates a new thread starting in a channel attached to the given message. Return value unknown  
+POST `/channels/{channel.id}/messages/{message.id}/threads`  
+Creates a new thread starting in a channel attached to the given message.  
+Unknown return  
 JSON parameters:
 
 | Field                 | Type   | Description                                                  |
