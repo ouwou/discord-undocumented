@@ -1,6 +1,8 @@
 * auto-gen TOC:
 {:toc}
 
+If a "(?)" is at the end of a field or type name it means it might be optional or nullable but is not known for sure
+
 ### Thread Channels
 
 Drafted [here](https://github.com/discord/discord-api-docs/pull/2693)
@@ -110,6 +112,8 @@ GET `https://discord.com/api/v8/guilds/81384788765712384/roles/member-counts`
 
 Unknown. Presumably values indicating who the user communicates with most  
 
+#### Get User Affinities
+
 GET `https://discord.com/api/v8/users/@me/affinities/users`  
 
 Returns:
@@ -131,6 +135,8 @@ Returns:
 
 Unknown. Presumably values indicating what guilds the user communicates in the most  
 
+#### Get Guild Affinities
+
 GET `https://discord.com/api/v8/users/@me/affinities/guilds`  
 
 Returns:
@@ -146,4 +152,43 @@ Returns:
 |----------|----------------|--------------------------|
 | guild_id | snowflake      | the id of the guild       |
 | affinity | decimal number | the affinity of the guild |
+|
+
+### User Notes
+
+#### Get User Note
+
+GET `/users/@me/notes/{user.id}`
+
+Returns a [user note object](#user-note-object) or a 404 if no note is set
+
+#### Set User Note
+
+PUT `/users/@me/notes/{user.id}`  
+JSON parameters:
+
+| Field | Type   | Description                    |
+|-------|--------|--------------------------------|
+| note  | string | the note to assign to the user |
+
+Returns the new [user note object](#user-note-object)
+
+#### User Note Update dispatch event
+
+Sent whenever a user's note is updated
+
+| Field | Type      | Description                                    |
+|-------|-----------|------------------------------------------------|
+| note  | string    | the note assigned to the user                  |
+| id    | snowflake | the id of the user whose note has been updated |
+
+#### User Note Object
+
+Whether the fields are optional or can be null is unknown. In testing, they are always present and non-null
+
+| Field | Type | Description |
+|-------|------|-------------|
+| note         | string    | the note assigned to the user                                           |
+| note_user_id | snowflake | the id of the user with the note                                        |
+| user_id      | snowflake | the id of the user who created the note (apparently always your own id) |
 |
