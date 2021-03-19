@@ -1,37 +1,66 @@
-## Welcome to GitHub Pages
+* auto-gen TOC:
+{:toc}
 
-You can use the [editor on GitHub](https://github.com/ouwou/discord-undocumented/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+### Role Member Counts
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Retrieves the number of members with each role  
+[GitHub issue](https://github.com/discord/discord-api-docs/issues/2610#issuecomment-778985709)
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+GET `/api/guilds/{guild.id}/roles/member-counts`  
+Returns json object where the key is the role ID and the value is the number of members  
+  
+  
+Example (using the Discord API guild):  
+GET `https://discord.com/api/v8/guilds/81384788765712384/roles/member-counts`  
+```
+{
+  "585569508501094449": 14,
+  "159592059873787904": 45,
+  "254077236989132800": 7,
+  "187053776920641536": 420,
+  "233981945279807488": 33
+  trimmed...
+}
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### User Affinities
 
-### Jekyll Themes
+Unknown. Presumably values indicating who the user communicates with most  
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ouwou/discord-undocumented/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+GET `https://discord.com/api/v8/users/@me/affinities/users`  
 
-### Support or Contact
+Returns:
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+| Field           | Type                                                    | Description             |
+|-----------------|---------------------------------------------------------|-------------------------|
+| user_affinities | array of [user affinity](#user-affinity-object) objects | list of user affinities |
+|
+
+#### User Affinity Object
+
+| Field    | Type           | Description              |
+|----------|----------------|--------------------------|
+| user_id  | snowflake      | the id of the user       |
+| affinity | decimal number | the affinity of the user |
+|
+
+### Guild Affinities
+
+Unknown. Presumably values indicating what guilds the user communicates in the most  
+
+GET `https://discord.com/api/v8/users/@me/affinities/guilds`  
+
+Returns:
+
+| Field            | Type                                                      | Description              |
+|------------------|-----------------------------------------------------------|--------------------------|
+| guild_affinities | array of [guild affinity](#guild-affinity-object) objects | list of guild affinities |
+|
+
+#### Guild Affinity Object
+
+| Field    | Type           | Description              |
+|----------|----------------|--------------------------|
+| guild_id | snowflake      | the id of the guild       |
+| affinity | decimal number | the affinity of the guild |
+|
