@@ -105,7 +105,6 @@ DELETE `/users/@me/guilds/{guild.id}`
 ### Member Verification Gate and Guild Applications
 
 Guilds with the feature `MEMBER_VERIFICATION_GATE_ENABLED` require new members to verify themselves  
-Some of the unknown information is probably easy to find, but I don't have access to a community server  
 Guilds may also create forms that users submit in order to apply for access to a guild  
 
 #### Get Member Verification Gate
