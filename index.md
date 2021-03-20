@@ -32,9 +32,14 @@ Extra JSON parameters:
 
 Extra JSON parameters:
 
-| Field    | Type              | Description                                           |
-|----------|-------------------|-------------------------------------------------------|
-| features | array of features | "COMMUNITY" will enable community mode for the server |
+| Field    | Type              | Description |
+|----------|-------------------|-------------|
+| features | array of features | see below   |
+
+The following features have been seen in Modify Guild:
+* NEWS
+* COMMUNITY
+* DISCOVERABLE
 
 Additionally, setting `system_channel_id`, `rules_channel_id`, or `public_updates_channel_id`, to 1 in this endpoint (at least when adding the "COMMUNITY" feature) will create new channels
 
@@ -88,6 +93,14 @@ JSON parameters:
 | Field | Type    | Description                               |
 |-------|---------|-------------------------------------------|
 | level | integer | 0 to disable MFA requirement, 1 to enable |
+
+### Join Guild
+
+POST `/invites/{invite.code}`
+
+### Leave Guild
+
+DELETE `/users/@me/guilds/{guild.id}`
 
 ### Member Verification Gate and Guild Applications
 
@@ -166,6 +179,127 @@ Returns a [welcome screen object](https://discord.com/developers/docs/resources/
 PATCH `/guilds/{guild.id}/welcome-screen`  
 Request body is a [welcome screen object](https://discord.com/developers/docs/resources/guild#welcome-screen-object-welcome-screen-structure)  
 Returns a [welcome screen object](https://discord.com/developers/docs/resources/guild#welcome-screen-object-welcome-screen-structure) on succses  
+
+### Guild Discovery Catalog
+
+#### Get Discovery Categories
+
+GET `/discovery/categories`  
+Returns array of [discovery category objects](#discovery-category-object) (unlocalized objects)  
+GET parameters:
+
+| Name         | Type   | Description                                   |
+|--------------|--------|-----------------------------------------------|
+| locale       | string | locale to return. doesn't seem to do anything |
+| primary_only | bool   | only return primary-level categories          |
+
+#### Discovery Category Object
+
+| Field       | Type                                              | Description                        |
+|------------|----------------------------------------------------|------------------------------------|
+| id         | integer                                            | unique id for the category         |
+| is_primary | bool                                               | is the category a primary category |
+| name       | string or [localized name](#localized-name-object) | name of the category               |
+
+#### Localized Name Object
+
+| Field         | Type                                                   | Description                            |
+|---------------|--------------------------------------------------------|----------------------------------------|
+| default       | string                                                 | fallback localization string (english) |
+| localizations | array of object, key is language code, value is string | localized versions of the string       |
+
+#### Get Discoverable Guilds
+
+GET `/discoverable-guilds`  
+Returns [discoverable guilds response object](#discoverable-guilds-response-object)  
+GET parameters:
+
+| Name   | Type        | Description                    |
+|--------|-------------|--------------------------------|
+| offset | integer     | offset into the list of guilds |
+| limit  | integer     | limit of guilds to get         |
+| categories | integer | category to limit response to  |
+
+#### Discoverable Guilds Response Object
+
+| Field   | Type                                                                                                                   | Description                     |
+|--------|------------------------------------------------------------------------------------------------------------------------|---------------------------------|
+| limit  | integer                                                                                                                | limit given in request          |
+| offset | integer                                                                                                                | offset given in request         |
+| total  | integer                                                                                                                | total number of matching guilds |
+| guilds | array of [guild objects](https://discord.com/developers/docs/resources/guild#guild-object) with extra keys (see below) | list of discoverable guilds     |
+
+guilds object extra fields:
+
+| Field                  | Type                                                                        | Description                |
+|------------------------|-----------------------------------------------------------------------------|----------------------------|
+| keywords               | array of string                                                             | keywords of the guild      |
+| primary_category_id(?) | integer                                                                     | id of the primary category |
+| categories             | array of localized [discovery category objects](#discovery-category-object) | categories of the guild    |
+| auto_removed(?)        | bool(?)                                                                     | unknown                    |
+
+#### Join Discoverable Guild
+
+PUT `/guilds/{guild.id}/members/@me`  
+Returns a [guild object](https://discord.com/developers/docs/resources/guild#guild-object)  
+The official client also adds the GET parameters `lurker=false` though it's unclear what difference this makes
+
+#### Searching Discoverable Guilds
+
+Discord uses [Algolia](https://algolia.com) with key `NKTZZ4AIZU` to search for guilds which is beyond the scope of this page  
+GET `/discovery/valid-term?term={term}` will return `{"valid": true}` if a search term is valid
+
+### Guild Lurking
+
+Guilds with the feature `PREVIEW_ENABLED` can be "lurked" in/previewed before actually joining. This is basically the same as joining except you are granted no permissions and are not counted as a member
+
+#### Start Lurking
+
+PUT `/guilds/{guild.id}/members/@me?lurker=true&session_id={session.id}`  
+Session ID is presumably the one found in the READY gateway message and you will be removed when this session expires  
+Returns a [guild object](https://discord.com/developers/docs/resources/guild#guild-object)
+
+#### Stop Lurking
+
+Same as [Leave Guild](#leave-guild)
+
+### Managing Guild Discovery and Partnership
+
+#### Get Guild Discovery Requirements
+
+GET `/guilds/{guild.id}/discovery-requirements`  
+Returns a [guild requirements object](#guild-requirements-object)
+
+#### Get Guild Partnership Requirements
+
+GET `/partners/{guild.id}/requirements`  
+Returns a [guild requirements object](#guild-requirements-object)
+
+#### Guild Requirements Object
+
+| Field                           | Type                                              | Description                                  |
+|---------------------------------|---------------------------------------------------|----------------------------------------------|
+| age                             | bool                                              | is the guild old enough                      |
+| engagement_healthy              | bool                                              | do members visit and talk enough             |
+| health_score                    | object, unknown structure                         | unknown                                      |
+| health_score_pending            | bool                                              | is waiting on server activity metrics           |
+| healthy                         | bool                                              | are server activity requirements met         |
+| nsfw_properties                 | [nsfw properties object](#nsfw-properties-object) | channels with meanie words in them           |
+| protected                       | bool                                              | is 2FA enabled for moderators                |
+| retention_healthy               | bool                                              | is member retention sufficient               |
+| safe_environment                | bool                                              | if false, guild was flagged by Trust & Safety |
+| size                            | bool                                              | are there enough members in the guild        |
+| sufficient                      | bool                                              | are all requirements met                     |
+| sufficient_without_grace_period | bool                                              | unknown                                      |
+| minimum_age                     | integer                                           | how many days old the guild must be          |
+| minimum_size                    | integer                                           | how many members the guild must have         |
+| valid_rules_channel             | bool                                              | does the guild have a rules channel          |
+
+#### NSFW Properties Object
+
+| Field    | Type               | Description                      |
+|----------|--------------------|----------------------------------|
+| channels | array of snowflake | channels with unacceptable names |
 
 ### Thread Channels
 
