@@ -401,11 +401,11 @@ Channel objects may contain the field `thread_metadata` as described below:
 Guild objects may also contain the field `threads`, an array, whose structure is currently unknown
 
 <details>
-	<summary>show images</summary>
+	<summary><strong>show images</strong></summary>
 	<img src="media/thread_create.png">
 	<img src="media/creating_new_thread.png">
+	<img src="media/thread.png">
 </details>
-&nbsp;  
 
 ### Stage Channels
   
@@ -418,7 +418,7 @@ Stages are a special type of voice channel where members are organized into spea
 | GUILD_STAGE_VOICE | 13    |
 
 <details>
-	<summary>show images</summary>
+	<summary><strong>show images</strong></summary>
 	<img src="media/stage_channel_list.png">
 	<img src="media/stage_channel_perms.png">
 	<img src="media/manage_stage_moderators.png">
