@@ -3,91 +3,42 @@
 
 If a "(?)" is at the end of a field or type name it means it might be optional or nullable but is not known for sure
 
-### Thread Channels
+### Create Guild Extra Parameters
 
-Drafted [here](https://github.com/discord/discord-api-docs/pull/2693)
+[Original documentation](https://discord.com/developers/docs/resources/guild#create-guild)
 
-Used for ephemeral conversations started from existing channels. Users can join and leave threads. Can also be manually archived and unarchived
+Extra JSON parameters:
 
-#### Create Thread
+| Field               | Type   | Description                             |
+|---------------------|--------|-----------------------------------------|
+| guild_template_code | string | template to use when creating the guild |
 
-POST `/channels/{channel.id}/messages/{message.id}/threads`  
-Creates a new thread starting in a channel attached to the given message.  
-Unknown return  
-JSON parameters:
+#### Guild Template Codes
 
-| Field                 | Type   | Description                                                  |
-|-----------------------|--------|--------------------------------------------------------------|
-| auto_archive_duration | int    | minutes until the thread should be archived after inactivity |
-| name                  | string | name of the thread                                           |
-| type                  | int    | thread channel type. see [channel types](#channel-types)     |
-|
+| Code         | Description     |
+|--------------|-----------------|
+| 2TffvPucqHkN | Blank           |
+| hvtBQMfw6uSJ | Gaming          |
+| hgM48av5Q69A | Friends         |
+| FbwUwRp4j8Es | Study           |
+| s4WNnBxTDPsY | Clubs           |
+| 6exdzMgjZgah | Creators        | 
+| 64UDvRNCC52Y | Local Community |
+| Ctg7PUHcQmZu | School Club     |
 
-#### Thread Member
+### Modify Guild Extra Parameters
 
-Unknown method `/channels/{thread.id}/thread-members/{user.id}`  
-Unknown return. {user.id} may be substituted with @me
+[Original documentation](https://discord.com/developers/docs/resources/guild#modify-guild)
 
-#### Thread Member Settings
+Extra JSON parameters:
 
-Unknown method `/channels/{thread.id}/thread-members/@me/settings`  
-Unknown return
+| Field    | Type              | Description                                           |
+|----------|-------------------|-------------------------------------------------------|
+| features | array of features | "COMMUNITY" will enable community mode for the server |
 
-#### Channel Types
-* PUBLIC_THREAD = 11
-* PRIVATE_THREAD = 12
+Additionally, setting `system_channel_id`, `rules_channel_id`, or `public_updates_channel_id`, to 1 in this endpoint (at least when adding the "COMMUNITY" feature) will create new channels
 
-#### Message Types
-* THREAD_STARTER_MESSAGE = 21
-
-#### Message Flags
-* HAS_THREAD = 1 << 5
-
-#### Dispatch events
-* THREAD_CREATE
-* THREAD_UPDATE
-* THREAD_DELETE
-* THREAD_LIST_SYNC
-* THREAD_MEMBER_UPDATE
-* THREAD_MEMBERS_UPDATE
-  
-Channel objects may contain the field `thread_metadata` as described below:
-
-#### Thread Metadata Object
-
-| Field                 | Type      | Description                                                  |
-|-----------------------|-----------|--------------------------------------------------------------|
-| archived              | bool(?)   | ?                                                            |
-| auto_archive_duration | integer   | minutes until the thread should be archived after inactivity |
-| ?archiver_id          | snowflake | the id of the user who archived the thread                   |
-| archive_timestamp(?)  | ?         | ?                                                            |
-|
-
-Guild objects may also contain the field `threads`, an array, whose structure is currently unknown
-
-<details>
-	<summary>show images</summary>
-	<img src="media/thread_create.png">
-	<img src="media/creating_new_thread.png">
-</details>
-&nbsp;  
-
-### Stage Channels
-  
-Stages are a special type of voice channel where members are organized into speakers, audience, and stage moderators. Stage moderators are speakers themselves and can manage the stage including speakers and the audience. The audience listens to the speaker or speakers and can also have the ability to raise their hands in order to request to speak.
-
-#### Channel Types:
-* GUILD_STAGE_VOICE = 13
-
-<details>
-	<summary>show images</summary>
-	<img src="media/stage_channel_list.png">
-	<img src="media/stage_channel_perms.png">
-	<img src="media/manage_stage_moderators.png">
-</details>
-&nbsp;  
-
-### Role Member Counts
+### Get Role Member Counts
 
 Retrieves the number of members with each role  
 [GitHub issue](https://github.com/discord/discord-api-docs/issues/2610#issuecomment-778985709)
@@ -108,6 +59,236 @@ GET `https://discord.com/api/v8/guilds/81384788765712384/roles/member-counts`
   trimmed...
 }
 ```
+&nbsp;  
+
+### Get Role Members
+
+GET `/guilds/{guild.id}/roles/{role.id}/member-ids`  
+Retrieves up to 100 member IDs who have the given role  
+Returns array of snowflakes  
+&nbsp;  
+
+### Bulk Add Member Role
+
+PATCH `/guilds/{guild.id}/roles/{role.id}/members`  
+Assign multiple members a role at once  
+Returns array of [member objects](https://discord.com/developers/docs/resources/guild#guild-member-object)  
+JSON parameters:
+
+| Field      | Type               | Description                         |
+|------------|--------------------|-------------------------------------|
+| member_ids | array of snowflake | list of members to give the role to |
+
+### Update Guild MFA Level
+
+POST `/guilds/{guild.id}/mfa`  
+Modify the MFA level of a guild. Can only be performed by the guild's owner  
+JSON parameters:
+
+| Field | Type    | Description                               |
+|-------|---------|-------------------------------------------|
+| level | integer | 0 to disable MFA requirement, 1 to enable |
+
+### Member Verification Gate and Guild Applications
+
+Guilds with the feature `MEMBER_VERIFICATION_GATE_ENABLED` require new members to verify themselves  
+Some of the unknown information is probably easy to find, but I don't have access to a community server  
+Guilds may also create forms that users submit in order to apply for access to a guild  
+
+#### Get Member Verification Gate
+
+GET `/guilds/{guild.id}/member-verification`  
+The official client adds parameters `with_guild=true` and `invite_code=` but these don't seem to do anything  
+Returns a [verfication gate info object](#verification-gate-info-object) or 204 No Content if there is no verification gate
+
+#### Modify Member Verification Gate
+
+PATCH `/guilds/{guild.id}/member-verification`  
+Request body is a partial [verfication gate info object](#verification-gate-info-object)  
+Returns a [verfication gate info object](#verification-gate-info-object)
+
+#### Verification Gate Info Object
+
+| Field        | Type                                                                     | Description                                                                                     |
+|--------------|--------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| ?description | string                                                                   | description of the server                                                                       |
+| ?form_fields | array of [verification field objects](#verification-field-object)        | list of fields                                                                                  |
+| ?version     | timestamp                                                                | string timestamp representing when the verification info was last updated                       |
+| ?enabled     | bool                                                                     | seems to be present only in [Modify Member Verification Gate](#modify-member-verification-gate) |
+
+#### Verification Field Object
+
+| Field      | Type            | Description                                                             |
+|------------|-----------------|-------------------------------------------------------------------------|
+| field_type | string          | type of field. see below                                                |
+| label      | string          | label of the field                                                      |
+| required   | bool            | whether it is required to check the checkbox in order to submit         |
+| values     | array of string | list of parameters for the field. see below                             |
+
+#### Verification Field Type
+
+| Name            | Description                                         |
+|-----------------|-----------------------------------------------------|
+| TERMS           | "Server Rules" `values` is a list of a server rules |
+| TEXT_INPUT      | "Short Answer" `values` is unknown                  |
+| PARAGRAPH       | "Paragraph" `values` is unknown                     |
+| MULTIPLE_CHOICE | "Multiple Choice" `values` is unknown               |
+| VERIFICATION    | "Connections" `values` is unknown                   |
+| FILE_UPLOAD     | Not present in code; only a translation string      |
+
+#### Request to Join Guild
+
+PUT `/guilds/{guild.id}/requests/@me`  
+Request body is the [verification info object](#verification-gate-info-object) the user accepted  
+Returns 201 Created and a [guild application object](#guild-application-object) on success  
+
+#### Guild Application Object
+
+| Field              | Type      | Description                                            |
+|--------------------|-----------|--------------------------------------------------------|
+| application_status | string    | may be "STARTED", "PENDING", "REJECTED", or "APPROVED" |
+| created_at         | timestamp | string timestamp when the application was created      |
+| guild_id           | snowflake | id of the guild being applied to                       |
+| last_seen          | timestamp | unknown                                                |
+| rejection_reason   | string?   | reason for rejection (if rejected)                     |
+| user_id            | snowflake | id of the user who created the application             |
+
+### Welcome Screen
+
+#### Get Welcome Screen
+
+GET `/guilds/{guild.id}/welcome-screen`
+
+Returns a [welcome screen object](https://discord.com/developers/docs/resources/guild#welcome-screen-object-welcome-screen-structure) or 204 No Content if there is none set  
+
+#### Modify Welcome Screen
+
+PATCH `/guilds/{guild.id}/welcome-screen`  
+Request body is a [welcome screen object](https://discord.com/developers/docs/resources/guild#welcome-screen-object-welcome-screen-structure)  
+Returns a [welcome screen object](https://discord.com/developers/docs/resources/guild#welcome-screen-object-welcome-screen-structure) on succses  
+
+### Thread Channels
+
+Drafted [here](https://github.com/discord/discord-api-docs/pull/2693)
+
+Used for ephemeral conversations started from existing channels. Users can join and leave threads. Can also be manually archived and unarchived
+
+#### Create Thread
+
+POST `/channels/{channel.id}/messages/{message.id}/threads`  
+Creates a new thread starting in a channel attached to the given message.  
+Unknown return  
+JSON parameters:
+
+| Field                 | Type   | Description                                                  |
+|-----------------------|--------|--------------------------------------------------------------|
+| auto_archive_duration | int    | minutes until the thread should be archived after inactivity |
+| name                  | string | name of the thread                                           |
+| type                  | int    | thread channel type. see [channel types](#channel-types)     |
+
+#### Join Thread
+
+POST `/channels/{thread.id}/thread-members/@me`  
+
+#### Add Member to Thread
+
+POST `/channels/{thread.id}/thread-members/{user.id}`
+
+#### Leave Thread
+
+DELETE `/channels/{thread.id}/thread-members/@me`
+
+#### Modify Thread
+
+PATCH `/channels/{thread.id}`  
+JSON parameters:
+
+| Field     | Type | Description                                                               |
+|-----------|------|---------------------------------------------------------------------------|
+| ?archived | bool | should the thread be archived                                             |
+| ?auto_archive_duration | integer | minutes of inactivity until the thread should be archived |
+
+#### Modify Notification Settings
+
+PATCH `/channels/{thread.id}/thread-members/@me/settings`  
+JSON parameters:
+
+| Field | Type                                        | Description        |
+|-------|---------------------------------------------|--------------------|
+| flags | [thread member flags](#thread-member-flags) | notification flags |
+
+#### Thread Member Flags
+
+| Flag             | Value  |
+|------------------|--------|
+| HAS_PARTICIPATED | 1 << 0 |
+| ALL_MESSAGES     | 1 << 1 |
+| ONLY_MENTIONS    | 1 << 2 |
+| NO_MESSAGES      | 1 << 3 |
+
+#### Channel Types
+
+| Type           | Value |
+|----------------|-------|
+| PUBLIC_THREAD  | 11    |
+| PRIVATE_THREAD | 12    |
+
+#### Message Types
+
+| Type                   | Value |
+|------------------------|-------|
+| THREAD_STARTER_MESSAGE | 21    |
+
+#### Message Flags
+
+| Flag       | Value  |
+|------------|--------|
+| HAS_THREAD | 1 << 5 |
+
+#### Dispatch events
+* THREAD_CREATE
+* THREAD_UPDATE
+* THREAD_DELETE
+* THREAD_LIST_SYNC
+* THREAD_MEMBER_UPDATE
+* THREAD_MEMBERS_UPDATE
+  
+Channel objects may contain the field `thread_metadata` as described below:
+
+#### Thread Metadata Object
+
+| Field                 | Type      | Description                                                  |
+|-----------------------|-----------|--------------------------------------------------------------|
+| archived              | bool(?)   | ?                                                            |
+| auto_archive_duration | integer   | minutes until the thread should be archived after inactivity |
+| ?archiver_id          | snowflake | the id of the user who archived the thread                   |
+| archive_timestamp(?)  | ?         | ?                                                            |
+
+Guild objects may also contain the field `threads`, an array, whose structure is currently unknown
+
+<details>
+	<summary>show images</summary>
+	<img src="media/thread_create.png">
+	<img src="media/creating_new_thread.png">
+</details>
+&nbsp;  
+
+### Stage Channels
+  
+Stages are a special type of voice channel where members are organized into speakers, audience, and stage moderators. Stage moderators are speakers themselves and can manage the stage including speakers and the audience. The audience listens to the speaker or speakers and can also have the ability to raise their hands in order to request to speak.
+
+#### Channel Types:
+
+| Type              | Value |
+|-------------------|-------|
+| GUILD_STAGE_VOICE | 13    |
+
+<details>
+	<summary>show images</summary>
+	<img src="media/stage_channel_list.png">
+	<img src="media/stage_channel_perms.png">
+	<img src="media/manage_stage_moderators.png">
+</details>
 
 ### User Affinities
 
@@ -122,7 +303,6 @@ Returns:
 | Field           | Type                                                    | Description             |
 |-----------------|---------------------------------------------------------|-------------------------|
 | user_affinities | array of [user affinity](#user-affinity-object) objects | list of user affinities |
-|
 
 #### User Affinity Object
 
@@ -130,7 +310,6 @@ Returns:
 |----------|----------------|--------------------------|
 | user_id  | snowflake      | the id of the user       |
 | affinity | decimal number | the affinity of the user |
-|
 
 ### Guild Affinities
 
@@ -145,7 +324,6 @@ Returns:
 | Field            | Type                                                      | Description              |
 |------------------|-----------------------------------------------------------|--------------------------|
 | guild_affinities | array of [guild affinity](#guild-affinity-object) objects | list of guild affinities |
-|
 
 #### Guild Affinity Object
 
@@ -153,7 +331,6 @@ Returns:
 |----------|----------------|--------------------------|
 | guild_id | snowflake      | the id of the guild       |
 | affinity | decimal number | the affinity of the guild |
-|
 
 ### User Notes
 
@@ -192,8 +369,6 @@ Whether the fields are optional or can be null is unknown. In testing, they are 
 | note         | string    | the note assigned to the user                                           |
 | note_user_id | snowflake | the id of the user with the note                                        |
 | user_id      | snowflake | the id of the user who created the note (apparently always your own id) |
-|
-
 
 ### User Profiles
 
@@ -212,7 +387,6 @@ Note: a deleted guild can be returned in `mutual_guilds` (including the `nick` f
 | ?premium_guild_since | ?string                                                                       | timestamp of when the user began boosting the guild                      |
 | connected_accounts   | array of [connection objects](#connection-object)                             | list of the user's connected accounts                                    |
 | mutual_guilds        | array of [mutual guild objects](#mutual-guild-object)                         | list of mutual guilds between the requesting user and the requested user |
-|
 
 #### Mutual Guild Object
 
@@ -220,7 +394,6 @@ Note: a deleted guild can be returned in `mutual_guilds` (including the `nick` f
 |-------|-----------|--------------------------------------------|
 | id    | snowflake | id of the guild                            |
 | ?nick | string(?) | the requested user's nickname in the guild |
-|
 
 #### Connection Object
 
@@ -230,7 +403,6 @@ Note: a deleted guild can be returned in `mutual_guilds` (including the `nick` f
 | type     | string | [type](#connection-types) of service the connection represents |
 | name     | string | name of the user's connection. not necessarily unique          |
 | verified | bool   | if the user's connection has been verified                     |
-|
 
 #### Connection Types
 There may be more but this should be all of them
@@ -259,12 +431,15 @@ GET `/users/{user.id}/relationships`
 Returns an array of [user objects](https://discord.com/developers/docs/resources/user#user-object)
 
 #### Relationship Type
-* None = 0
-* Friend = 1
-* Blocked = 2
-* Pending Incoming = 3
-* Pending Outgoing = 4
-* Implicit = 5 (never observed?)
+
+| Type             | Value |
+|------------------|-------|
+| None             | 0     |
+| Friend           | 1     |
+| Blocked          | 2     |
+| Pending Incoming | 3     |
+| Pending Outgoing | 4     |
+| Implicit         | 5     |
 
 #### Relationship Object
 
@@ -272,7 +447,6 @@ Returns an array of [user objects](https://discord.com/developers/docs/resources
 |-------|-----------------------------------------|------------------------------------------------|
 | id    | snowflake                               | id of the user who the relationship is between |
 | type  | [relationship type](#relationship-type) | type of the relationship                       |
-| 
 
 [Relationship objects](#relationship-object) can be found in the gateway READY event under the field `relationships`
 
@@ -289,7 +463,6 @@ JSON parameters:
 | Field      | Type               | Description                                     |
 |------------|--------------------|-------------------------------------------------|
 | recipients | array of snowflake | array of user ids who should be added to the dm |
-|
 
 #### Close DM
 
@@ -313,7 +486,6 @@ The ordering of the `merged_members` field appears to match that of the `guilds`
 | merged_presences | [merged presences object](#merged-presences-object)                                                         | presences of friends and various users in guilds      |
 | merged_members   | array of array of [member objects](https://discord.com/developers/docs/resources/guild#guild-member-object) | various members in guilds                             |
 | guilds           | array                                                                                                       | appears to contain information regarding voice states |
-|
 
 #### Merged Presences Object
 
@@ -323,4 +495,3 @@ Similar the READY_SUPPLEMENTAL's `guild_members` field, the `guilds` array's ord
 |---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
 | guilds  | array of objects similar to [presence](#https://discord.com/developers/docs/topics/gateway#presence-update-presence-update-event-fields) except `user_id` is always present and not `id` | the presence of a user in a guild |
 | friends | same as above                                                                                                                                                                            | the presence of a friend          |
-|
