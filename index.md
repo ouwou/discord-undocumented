@@ -123,10 +123,10 @@ Returns a [verfication gate info object](#verification-gate-info-object)
 
 | Field        | Type                                                                     | Description                                                                                     |
 |--------------|--------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
-| ?description | string                                                                   | description of the server                                                                       |
-| ?form_fields | array of [verification field objects](#verification-field-object)        | list of fields                                                                                  |
-| ?version     | timestamp                                                                | string timestamp representing when the verification info was last updated                       |
-| ?enabled     | bool                                                                     | seems to be present only in [Modify Member Verification Gate](#modify-member-verification-gate) |
+| description? | string                                                                   | description of the server                                                                       |
+| form_fields? | array of [verification field objects](#verification-field-object)        | list of fields                                                                                  |
+| version?     | timestamp                                                                | string timestamp representing when the verification info was last updated                       |
+| enabled?     | bool                                                                     | seems to be present only in [Modify Member Verification Gate](#modify-member-verification-gate) |
 
 #### Verification Field Object
 
@@ -156,14 +156,38 @@ Returns 201 Created and a [guild application object](#guild-application-object) 
 
 #### Guild Application Object
 
-| Field              | Type      | Description                                            |
-|--------------------|-----------|--------------------------------------------------------|
-| application_status | string    | may be "STARTED", "PENDING", "REJECTED", or "APPROVED" |
-| created_at         | timestamp | string timestamp when the application was created      |
-| guild_id           | snowflake | id of the guild being applied to                       |
-| last_seen          | timestamp | unknown                                                |
-| rejection_reason   | string?   | reason for rejection (if rejected)                     |
-| user_id            | snowflake | id of the user who created the application             |
+| Field              | Type                                                                          | Description                                            |
+|--------------------|-------------------------------------------------------------------------------|--------------------------------------------------------|
+| application_status | string                                                                        | may be "STARTED", "PENDING", "REJECTED", or "APPROVED" |
+| created_at         | ?timestamp                                                                    | string timestamp when the application was created      |
+| guild_id           | snowflake                                                                     | id of the guild being applied to                       |
+| last_seen          | ?timestamp                                                                    | unknown                                                |
+| rejection_reason   | ?string                                                                       | reason for rejection (if rejected)                     |
+| user_id            | snowflake                                                                     | id of the user who created the application             |
+| user?              | [user object](https://discord.com/developers/docs/resources/user#user-object) | the user who created the request                       |
+
+#### Guild Join Request Create Dispatch Event
+
+Sent when a guild join request is created such as when joining a server with a verification gate. Structure appears to be the same as [Guild Join Request Update Dispatch Event](#guild-join-request-update-dispatch-event)
+
+#### Guild Join Request Update Dispatch Event
+
+Sent when a guild join request is updated such as when accepting rules through the verification gate
+
+| Field    | Type                                                  |                                |
+|----------|-------------------------------------------------------|--------------------------------|
+| status   | string                                                | see `application_status` above |
+| guild_id | snowflake                                             | the guild the request is from  |
+| request  | [guild application object](#guild-application-object) | the new request                |
+
+#### Guild Join Request Delete Dispatch Event
+
+Sent when a request is deleted such as when leaving a server before completing the verification gate
+
+| Field    | Type      |                              |
+|----------|-----------|------------------------------|
+| user_id  | snowflake | user who created the request |
+| guild_id | snowflake | guild the request is for     |
 
 ### Welcome Screen
 
@@ -336,10 +360,10 @@ DELETE `/channels/{thread.id}/thread-members/@me`
 PATCH `/channels/{thread.id}`  
 JSON parameters:
 
-| Field     | Type | Description                                                               |
-|-----------|------|---------------------------------------------------------------------------|
-| ?archived | bool | should the thread be archived                                             |
-| ?auto_archive_duration | integer | minutes of inactivity until the thread should be archived |
+| Field                  | Type    | Description                                               |
+|------------------------|---------|-----------------------------------------------------------|
+| archived?              | bool    | should the thread be archived                             |
+| auto_archive_duration? | integer | minutes of inactivity until the thread should be archived |
 
 #### Modify Notification Settings
 
@@ -394,7 +418,7 @@ Channel objects may contain the field `thread_metadata` as described below:
 |-----------------------|-----------|--------------------------------------------------------------|
 | archived              | bool(?)   | ?                                                            |
 | auto_archive_duration | integer   | minutes until the thread should be archived after inactivity |
-| ?archiver_id          | snowflake | the id of the user who archived the thread                   |
+| archiver_id?          | snowflake | the id of the user who archived the thread                   |
 | archive_timestamp(?)  | ?         | ?                                                            |
 
 Guild objects may also contain the field `threads`, an array, whose structure is currently unknown
@@ -516,8 +540,8 @@ Note: a deleted guild can be returned in `mutual_guilds` (including the `nick` f
 | Field                | Type                                                                          | Description
 |----------------------|-------------------------------------------------------------------------------|--------------------------------------------------------------------------|
 | user                 | [user object](https://discord.com/developers/docs/resources/user#user-object) | the user whose profile was requested                                     |
-| ?premium_since       | ?string                                                                       | timestamp of when the user first purchased nitro(?)                      |
-| ?premium_guild_since | ?string                                                                       | timestamp of when the user began boosting the guild                      |
+| ?premium_since       | string?                                                                       | timestamp of when the user first purchased nitro(?)                      |
+| ?premium_guild_since | string?                                                                       | timestamp of when the user began boosting the guild                      |
 | connected_accounts   | array of [connection objects](#connection-object)                             | list of the user's connected accounts                                    |
 | mutual_guilds        | array of [mutual guild objects](#mutual-guild-object)                         | list of mutual guilds between the requesting user and the requested user |
 
@@ -609,6 +633,13 @@ PUT `/channels/{channel.id}/recipients/{user.id}`
 
 DELETE `/channels/{channel.id}/recipients/{user.id}`
 
+### Ready Dispatch Event Extra Fields
+
+| Field                | Type                                                            | Description                                                           |
+| ---------------------|-----------------------------------------------------------------|-----------------------------------------------------------------------|
+| guild_join_requests? | array of [guild application objects](#guild-application-object) | applications the user has made for guilds. used in verification gates |
+| required_action?     | string                                                          | see [required action type](#required-action-type)
+
 ### Ready Supplemental Dispatch Event
 
 This event appears to change every once in a while so these docs might be out of date (probably not)  
@@ -628,3 +659,65 @@ Similar the READY_SUPPLEMENTAL's `guild_members` field, the `guilds` array's ord
 |---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
 | guilds  | array of objects similar to [presence](#https://discord.com/developers/docs/topics/gateway#presence-update-presence-update-event-fields) except `user_id` is always present and not `id` | the presence of a user in a guild |
 | friends | same as above                                                                                                                                                                            | the presence of a friend          |
+
+### Account Verification
+
+When Discord thinks you might be a spammer or doing something naughty it will send `USER_REQUIRED_ACTION_UPDATE` as described below
+
+#### User Required Action Update Dispatch Event
+
+| Field           | Type   | Description                        |
+|-----------------|--------|------------------------------------|
+| required_action | string | type of required action. see below |
+
+#### Required Action Type
+
+| Name                   | Description                          |
+|------------------------|--------------------------------------|
+| REQUIRE_CAPTCHA        | user must complete a captcha         |
+| REQUIRE_VERIFIED_EMAIL | user must verify an email            |
+| REQUIRE_VERIFIED_PHONE | user must verify with a phone number |
+
+#### Send Phone Verification Code
+
+POST `/users/@me/phone`  
+Returns 204 No Content on success
+JSON parameters:
+
+| Field | Type   | Description                          |
+|-------|--------|--------------------------------------|
+| phone | string | phone number in format "+1234567890" |
+
+Errors:
+
+| Error | Description          |
+|-------|----------------------|
+| 50022 | Invalid phone number |
+
+#### Verify Phone with Code
+
+POST `/phone-verifications/verify`  
+Returns 400 Bad Request on bad code or 200 OK on success  
+JSON parameters:
+
+| Field | Type   | Description                          |
+|-------|--------|--------------------------------------|
+| code  | string | the verification code                |
+| phone | string | phone number in format "+1234567890" |
+
+Return object:
+
+| Field | Type   | Description                         |
+|-------|--------|-------------------------------------|
+| token | string | token used to finalize verification |
+
+#### Finalize Phone Verification
+
+POST `/users/@me/phone`  
+Returns 204 No Content on success  
+JSON parameters:
+
+| Field       | Type   | Description                                                           |
+|-------------|--------|-----------------------------------------------------------------------|
+| password    | string | account password                                                      |
+| phone_token | string | token received from [Verify Phone with Code](#verify-phone-with-code) |
