@@ -10,4 +10,4 @@ Returns a [guild object](https://discord.com/developers/docs/resources/guild#gui
 
 #### Stop Lurking
 
-Same as [Leave Guild](/join_leave_guild#leave-guild)
+Same as [Leave Guild](./join_leave_guild#leave-guild)
