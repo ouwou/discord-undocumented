@@ -68,6 +68,7 @@ JSON parameters:
 
 | Type                   | Value |
 |------------------------|-------|
+| THREAD_CREATED         | 18    |
 | THREAD_STARTER_MESSAGE | 21    |
 
 #### Message Flags
