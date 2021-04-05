@@ -5,6 +5,7 @@ Retrieves the number of members with each role
 
 GET `/api/guilds/{guild.id}/roles/member-counts`  
 Returns json object where the key is the role ID and the value is the number of members  
+Appears to require VIEW_AUDIT_LOG permission  
   
   
 Example (using the Discord API guild):  
