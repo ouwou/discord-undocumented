@@ -1,3 +1,6 @@
+## Stage Channels will be officially documented (soon)
+See [this PR](https://github.com/discord/discord-api-docs/pull/2751)  
+
 ### Stage Channels
   
 Stages are a special type of voice channel where members are organized into speakers, audience, and stage moderators. Stage moderators are speakers themselves and can manage the stage including speakers and the audience. The audience listens to the speaker or speakers and can also have the ability to raise their hands in order to request to speak.
