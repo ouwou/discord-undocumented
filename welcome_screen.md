@@ -10,4 +10,4 @@ Returns a [welcome screen object](https://discord.com/developers/docs/resources/
 
 PATCH `/guilds/{guild.id}/welcome-screen`  
 Request body is a [welcome screen object](https://discord.com/developers/docs/resources/guild#welcome-screen-object-welcome-screen-structure)  
-Returns a new [welcome screen object](https://discord.com/developers/docs/resources/guild#welcome-screen-object-welcome-screen-structure) on success 
+Returns a new [welcome screen object](https://discord.com/developers/docs/resources/guild#welcome-screen-object-welcome-screen-structure) on success  
