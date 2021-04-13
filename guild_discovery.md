@@ -13,11 +13,11 @@ GET parameters:
 
 #### Discovery Category Object
 
-| Field       | Type                                              | Description                        |
-|------------|----------------------------------------------------|------------------------------------|
-| id         | integer                                            | unique id for the category         |
-| is_primary | bool                                               | is the category a primary category |
-| name       | string or [localized name](#localized-name-object) | name of the category               |
+| Field       | Type                                              | Description                                                    |
+|------------|----------------------------------------------------|----------------------------------------------------------------|
+| id         | integer                                            | unique id for the category                                     |
+| is_primary | bool                                               | whether this category can be set as a guild's primary category |
+| name       | string or [localized name](#localized-name-object) | name of the category                                           |
 
 #### Localized Name Object
 
