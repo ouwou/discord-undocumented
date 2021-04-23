@@ -1,6 +1,6 @@
 ### Thread Channels
 
-Drafted [here](https://github.com/discord/discord-api-docs/pull/2693)
+Accidentally documented [here](https://github.com/discord/discord-api-docs/commit/3d7ca40854b033caadb0c4c2cbba7b0174dfa074)
 
 Used for ephemeral conversations started from existing channels. Users can join and leave threads. Can also be manually archived and unarchived
 
