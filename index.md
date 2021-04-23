@@ -3,6 +3,7 @@
 If a "(?)" is at the end of a field or type name it means it might be optional or nullable but is not known for sure
 
 * [Account Verification](./account_verification)
+* [Bot Components](./bot_components)
 * [Bulk Add Member Role](./bulk_member_role)
 * [Create Guild Extra Parameters](./create_guild)
 * [DMs and Group DMs](./dms)
