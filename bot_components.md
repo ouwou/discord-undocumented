@@ -12,7 +12,7 @@ Clicking a button causes a POST to Create Interaction with the `data` field bein
 
 | Field      | Type                              | Description                              |
 | type       | [component type](#component-type) | type of the component                    |
-| style?     | integer                           | [style](#component-styles) of the button |
+| style?     | integer                           | [style](#component-styles) for buttons   |
 | custom_id? | string                            | unique id for the button                 |
 | label?     | string                            | label of the button                      |
 | url?       | string                            | url to be opened when clicked            |
@@ -23,8 +23,9 @@ the API will error if a `url` is provided saying a `custom_id` is required, but 
 #### Component Type
 
 | Name       | Value |
-| collection | 1     |
+| action row | 1     |
 | button     | 2     |
+| select     | 3     |
 
 #### Component Styles
 
