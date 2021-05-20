@@ -5,7 +5,7 @@
 GET `/users/@me/relationships`  
 Returns an array of [relationship objects](#relationship-object) with an extra key `type` representating the [relationship type](#relationship-type)
 
-#### Send Friend Request
+#### Send Friend Request by Tag
 
 POST `/users/@me/relationships`  
 Returns a 204 on success  
@@ -15,6 +15,12 @@ JSON parameters:
 |---------------|--------|-------------------|
 | username      | string | the username      |
 | discriminator | int    | the discriminator |
+
+#### Send Friend Request by ID or Accept Friend Request
+
+PUT `/users/@me/relationships/{user.id}`  
+Returns a 204 on success  
+Request body must be `{}`
 
 #### Remove Relationship
 
