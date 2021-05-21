@@ -10,11 +10,13 @@ Note: a deleted guild can be returned in `mutual_guilds` (including the `nick` f
 
 | Field                | Type                                                                          | Description
 |----------------------|-------------------------------------------------------------------------------|--------------------------------------------------------------------------|
-| user                 | [user object](https://discord.com/developers/docs/resources/user#user-object) | the user whose profile was requested                                     |
+| user                 | [user object](https://discord.com/developers/docs/resources/user#user-object) | the user whose profile was requested*                                    |
 | ?premium_since       | string?                                                                       | timestamp of when the user first purchased nitro(?)                      |
 | ?premium_guild_since | string?                                                                       | timestamp of when the user began boosting the guild                      |
 | connected_accounts   | array of [connection objects](#connection-object)                             | list of the user's connected accounts                                    |
 | mutual_guilds        | array of [mutual guild objects](#mutual-guild-object)                         | list of mutual guilds between the requesting user and the requested user |
+
+\* this user object may have extra fields such as profile customization information (see: [Profile Customation](./profile_customization))
 
 #### Mutual Guild Object
 
