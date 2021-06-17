@@ -9,6 +9,7 @@ If a "(?)" is at the end of a field or type name it means it might be optional o
 * [DMs and Group DMs](./dms)
 * [Get Role Member Counts](./role_member_counts)
 * [Get Role Member IDs](./get_role_members)
+* [Guild Directories](./guild_directories)
 * [Guild Discovery](./guild_discovery)
 * [Guild Lurking](./guild_lurking)
 * [Guild/User Affinities](./affinities)
