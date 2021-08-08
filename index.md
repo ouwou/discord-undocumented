@@ -24,6 +24,7 @@ If a "(?)" is at the end of a field or type name it means it might be optional o
 * [Ready Supplemental Event](./ready_supplemental)
 * [Relationships](./relationships)
 * [Search Messages](./search)
+* [Threads](./threads)
 * [Update Guild MFA Level](./update_guild_mfa_level)
 * [User Notes](./notes)
 * [Welcome Screen](./welcome_screen)
