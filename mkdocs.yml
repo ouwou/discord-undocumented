@@ -1,0 +1,54 @@
+site_name: discord-undocumented
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: purple
+
+nav:
+  - index.md
+  - Account:
+    - account_verification.md
+    - affinities.md
+    - dms.md
+  - Gateway:
+    - capabilities.md
+    - ready_event.md
+    - ready_supplemental.md
+    - slash_commands.md
+  - Guild:
+    - create_guild.md
+    - get_role_members.md
+    - bulk_member_role.md
+    - guild_avatars.md
+    - guild_directories.md
+    - guild_discovery.md
+    - guild_lurking.md
+    - join_leave_guild.md
+    - manage_discovery_partnership.md
+    - member_verification.md
+    - modify_guild.md
+    - role_member_counts.md
+    - threads.md
+    - update_guild_mfa_level.md
+  - Message:
+    - search.md
+  - User:
+    - notes.md
+    - profile.md
+    - relationships.md
+    - user_guild_settings.md
+    - voice_channel_effects.md
+    - welcome_screen.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
