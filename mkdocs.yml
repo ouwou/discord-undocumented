@@ -14,6 +14,8 @@ nav:
     - dms.md
   - Gateway:
     - capabilities.md
+    - gateway_events.md
+    - gateway_opcodes.md
     - ready_event.md
     - ready_supplemental.md
     - slash_commands.md
