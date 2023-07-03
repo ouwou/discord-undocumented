@@ -1,156 +1,160 @@
 # Gateway Events
 
-* ACTIVITY_START
-* ACTIVITY_USER_ACTION
-* APPLICATION_COMMAND_AUTOCOMPLETE_RESPONSE
-* APPLICATION_COMMAND_PERMISSIONS_UPDATE
-* AUTH_SESSION_CHANGE
-* AUTO_MODERATION_MENTION_RAID_DETECTION
-* BILLING_POPUP_BRIDGE_CALLBACK
-* BILLING_REFERRAL_TRIAL_OFFER_UPDATE
-* BURST_CREDIT_BALANCE_UPDATE
-* CALL_CREATE
-* CALL_DELETE
-* CALL_UPDATE
-* CHANNEL_CREATE
-* CHANNEL_DELETE
-* CHANNEL_PINS_ACK
-* CHANNEL_PINS_UPDATE
-* CHANNEL_RECIPIENT_ADD
-* CHANNEL_RECIPIENT_REMOVE
-* CHANNEL_UPDATE
-* CONSOLE_COMMAND_UPDATE
-* CREATOR_MONETIZATION_RESTRICTIONS_UPDATE
-* DELETED_ENTITY_IDS
-* EMBEDDED_ACTIVITY_UPDATE
-* ENTITLEMENT_CREATE
-* ENTITLEMENT_DELETE
-* ENTITLEMENT_UPDATE
-* FORUM_UNREADS
-* FRIEND_SUGGESTION_CREATE
-* FRIEND_SUGGESTION_DELETE
-* GENERIC_PUSH_NOTIFICATION_SENT
-* GIFT_CODE_CREATE
-* GIFT_CODE_UPDATE
-* GUILD_APPLICATION_COMMAND_INDEX_UPDATE
-* GUILD_BAN_ADD
-* GUILD_BAN_REMOVE
-* GUILD_CREATE
-* GUILD_DELETE
-* GUILD_DIRECTORY_ENTRY_CREATE
-* GUILD_DIRECTORY_ENTRY_DELETE
-* GUILD_DIRECTORY_ENTRY_UPDATE
-* GUILD_EMOJIS_UPDATE
-* GUILD_FEATURE_ACK
-* GUILD_INTEGRATIONS_UPDATE
-* GUILD_JOIN_REQUEST_CREATE
-* GUILD_JOIN_REQUEST_DELETE
-* GUILD_JOIN_REQUEST_UPDATE
-* GUILD_MEMBER_ADD
-* GUILD_MEMBER_LIST_UPDATE
-* GUILD_MEMBER_REMOVE
-* GUILD_MEMBER_UPDATE
-* GUILD_MEMBERS_CHUNK
-* GUILD_ROLE_CREATE
-* GUILD_ROLE_DELETE
-* GUILD_ROLE_UPDATE
-* GUILD_SCHEDULED_EVENT_CREATE
-* GUILD_SCHEDULED_EVENT_DELETE
-* GUILD_SCHEDULED_EVENT_UPDATE
-* GUILD_SCHEDULED_EVENT_USER_ADD
-* GUILD_SCHEDULED_EVENT_USER_REMOVE
-* GUILD_SOUNDBOARD_SOUND_CREATE
-* GUILD_SOUNDBOARD_SOUND_DELETE
-* GUILD_SOUNDBOARD_SOUND_UPDATE
-* GUILD_SOUNDBOARD_SOUNDS_UPDATE
-* GUILD_STICKERS_UPDATE
-* GUILD_UPDATE
-* INITIAL_GUILD
-* INSERT
-* INTEGRATION_CREATE
-* INTEGRATION_DELETE
-* INTERACTION_CREATE
-* INTERACTION_FAILURE
-* INTERACTION_IFRAME_MODAL_CREATE
-* INTERACTION_MODAL_CREATE
-* INTERACTION_SUCCESS
-* LAST_MESSAGES
-* LIBRARY_APPLICATION_UPDATE
-* LOBBY_CREATE
-* LOBBY_DELETE
-* LOBBY_MEMBER_CONNECT
-* LOBBY_MEMBER_DISCONNECT
-* LOBBY_MEMBER_UPDATE
-* LOBBY_MESSAGE
-* LOBBY_UPDATE
-* LOBBY_VOICE_SERVER_UPDATE
-* LOBBY_VOICE_STATE_UPDATE
-* MESSAGE_ACK
-* MESSAGE_CREATE
-* MESSAGE_DELETE
-* MESSAGE_DELETE_BULK
-* MESSAGE_REACTION_ADD
-* MESSAGE_REACTION_REMOVE
-* MESSAGE_REACTION_REMOVE_ALL
-* MESSAGE_REACTION_REMOVE_EMOJI
-* MESSAGE_UPDATE
-* NOTIFICATION_CENTER_ITEM_COMPLETED
-* NOTIFICATION_CENTER_ITEM_CREATE
-* NOTIFICATION_CENTER_ITEM_DELETE
-* NOTIFICATION_CENTER_ITEMS_ACK
-* OAUTH2_TOKEN_REVOKE
-* PASSIVE_UPDATE_V1
-* PAYMENT_UPDATE
-* PRESENCE_UPDATE
-* PRESENCES_REPLACE
-* PRIVATE_CHANNEL_INTEGRATION_CREATE
-* PRIVATE_CHANNEL_INTEGRATION_DELETE
-* PRIVATE_CHANNEL_INTEGRATION_UPDATE
-* READY
-* READY_SUPPLEMENTAL
-* RECENT_MENTION_DELETE
-* RELATIONSHIP_ADD
-* RELATIONSHIP_REMOVE
-* RELATIONSHIP_UPDATE
-* RESUMED
-* SESSIONS_REPLACE
-* SOUNDBOARD_SOUNDS
-* SPEED_TEST_CREATE
-* SPEED_TEST_DELETE
-* SPEED_TEST_SERVER_UPDATE
-* SPEED_TEST_UPDATE
-* STAGE_INSTANCE_CREATE
-* STAGE_INSTANCE_DELETE
-* STAGE_INSTANCE_UPDATE
-* STREAM_CREATE
-* STREAM_DELETE
-* STREAM_SERVER_UPDATE
-* STREAM_UPDATE
-* SYNC
-* THREAD_CREATE
-* THREAD_DELETE
-* THREAD_LIST_SYNC
-* THREAD_MEMBER_LIST_UPDATE
-* THREAD_MEMBER_UPDATE
-* THREAD_MEMBERS_UPDATE
-* THREAD_UPDATE
-* TYPING_START
-* UPDATE
-* USER_ACHIEVEMENT_UPDATE
-* USER_CONNECTIONS_LINK_CALLBACK
-* USER_CONNECTIONS_UPDATE
-* USER_GUILD_SETTINGS_UPDATE
-* USER_NON_CHANNEL_ACK
-* USER_NOTE_UPDATE
-* USER_PAYMENT_CLIENT_ADD
-* USER_PAYMENT_SOURCES_UPDATE
-* USER_PREMIUM_GUILD_SUBSCRIPTION_SLOT_CREATE
-* USER_PREMIUM_GUILD_SUBSCRIPTION_SLOT_UPDATE
-* USER_REQUIRED_ACTION_UPDATE
-* USER_SETTINGS_PROTO_UPDATE
-* USER_SUBSCRIPTIONS_UPDATE
-* USER_UPDATE
-* VOICE_CHANNEL_EFFECT_SEND
-* VOICE_SERVER_UPDATE
-* VOICE_STATE_UPDATE
-* WEBHOOKS_UPDATE
+???+ warning
+     This list may not be complete. Some bot-only events are excluded.
+
+| Event                                                                                                                            | Documented |
+|----------------------------------------------------------------------------------------------------------------------------------|------------|
+| ACTIVITY_START                                                                                                                   | ❌          |
+| ACTIVITY_USER_ACTION                                                                                                             | ❌          |
+| APPLICATION_COMMAND_AUTOCOMPLETE_RESPONSE                                                                                        | ❌          |
+| APPLICATION_COMMAND_PERMISSIONS_UPDATE                                                                                           | ❌          |
+| AUTH_SESSION_CHANGE                                                                                                              | ❌          |
+| AUTO_MODERATION_MENTION_RAID_DETECTION                                                                                           | ❌          |
+| BILLING_POPUP_BRIDGE_CALLBACK                                                                                                    | ❌          |
+| BILLING_REFERRAL_TRIAL_OFFER_UPDATE                                                                                              | ❌          |
+| BURST_CREDIT_BALANCE_UPDATE                                                                                                      | ❌          |
+| CALL_CREATE                                                                                                                      | ❌          |
+| CALL_DELETE                                                                                                                      | ❌          |
+| CALL_UPDATE                                                                                                                      | ❌          |
+| [CHANNEL_CREATE](https://discord.com/developers/docs/topics/gateway-events#channel-create)                                       | ✅          |
+| [CHANNEL_DELETE](https://discord.com/developers/docs/topics/gateway-events#channel-delete)                                       | ✅          |
+| CHANNEL_PINS_ACK                                                                                                                 | ❌          |
+| [CHANNEL_PINS_UPDATE](https://discord.com/developers/docs/topics/gateway-events#channel-pins-update)                             | ✅          |
+| CHANNEL_RECIPIENT_ADD                                                                                                            | ❌          |
+| CHANNEL_RECIPIENT_REMOVE                                                                                                         | ❌          |
+| [CHANNEL_UPDATE](https://discord.com/developers/docs/topics/gateway-events#channel-update)                                       | ✅          |
+| CONSOLE_COMMAND_UPDATE                                                                                                           | ❌          |
+| CREATOR_MONETIZATION_RESTRICTIONS_UPDATE                                                                                         | ❌          |
+| DELETED_ENTITY_IDS                                                                                                               | ❌          |
+| EMBEDDED_ACTIVITY_UPDATE                                                                                                         | ❌          |
+| ENTITLEMENT_CREATE                                                                                                               | ❌          |
+| ENTITLEMENT_DELETE                                                                                                               | ❌          |
+| ENTITLEMENT_UPDATE                                                                                                               | ❌          |
+| FORUM_UNREADS                                                                                                                    | ❌          |
+| FRIEND_SUGGESTION_CREATE                                                                                                         | ❌          |
+| FRIEND_SUGGESTION_DELETE                                                                                                         | ❌          |
+| GENERIC_PUSH_NOTIFICATION_SENT                                                                                                   | ❌          |
+| GIFT_CODE_CREATE                                                                                                                 | ❌          |
+| GIFT_CODE_UPDATE                                                                                                                 | ❌          |
+| GUILD_APPLICATION_COMMAND_INDEX_UPDATE                                                                                           | ❌          |
+| [GUILD_BAN_ADD](https://discord.com/developers/docs/topics/gateway-events#guild-ban-add)                                         | ✅          |
+| [GUILD_BAN_REMOVE](https://discord.com/developers/docs/topics/gateway-events#guild-ban-remove)                                   | ✅          |
+| [GUILD_CREATE](https://discord.com/developers/docs/topics/gateway-events#guild-create)                                           | ✅          |
+| [GUILD_DELETE](https://discord.com/developers/docs/topics/gateway-events#guild-delete)                                           | ✅          |
+| GUILD_DIRECTORY_ENTRY_CREATE                                                                                                     | ❌          |
+| GUILD_DIRECTORY_ENTRY_DELETE                                                                                                     | ❌          |
+| GUILD_DIRECTORY_ENTRY_UPDATE                                                                                                     | ❌          |
+| [GUILD_EMOJIS_UPDATE](https://discord.com/developers/docs/topics/gateway-events#guild-emojis-update)                             | ✅          |
+| GUILD_FEATURE_ACK                                                                                                                | ❌          |
+| [GUILD_INTEGRATIONS_UPDATE](https://discord.com/developers/docs/topics/gateway-events#guild-integrations-update)                 | ✅          |
+| [GUILD_JOIN_REQUEST_CREATE](./member_verification.md#guild-join-request-create-dispatch-event)                                   | ❌          |
+| [GUILD_JOIN_REQUEST_DELETE](./member_verification.md#guild-join-request-delete-dispatch-event)                                   | ❌          |
+| [GUILD_JOIN_REQUEST_UPDATE](./member_verification.md#guild-join-request-update-dispatch-event)                                   | ❌          |
+| [GUILD_MEMBER_ADD](https://discord.com/developers/docs/topics/gateway-events#guild-member-add)                                   | ✅          |
+| GUILD_MEMBER_LIST_UPDATE                                                                                                         | ❌          |
+| [GUILD_MEMBER_REMOVE](https://discord.com/developers/docs/topics/gateway-events#guild-member-remove)                             | ✅          |
+| [GUILD_MEMBER_UPDATE](https://discord.com/developers/docs/topics/gateway-events#guild-member-update)                             | ✅          |
+| [GUILD_MEMBERS_CHUNK](https://discord.com/developers/docs/topics/gateway-events#guild-members-chunk)                             | ✅          |
+| [GUILD_ROLE_CREATE](https://discord.com/developers/docs/topics/gateway-events#guild-role-create)                                 | ✅          |
+| [GUILD_ROLE_DELETE](https://discord.com/developers/docs/topics/gateway-events#guild-role-delete)                                 | ✅          |
+| [GUILD_ROLE_UPDATE](https://discord.com/developers/docs/topics/gateway-events#guild-role-update)                                 | ✅          |
+| [GUILD_SCHEDULED_EVENT_CREATE](https://discord.com/developers/docs/topics/gateway-events#guild-scheduled-event-create)           | ✅          |
+| [GUILD_SCHEDULED_EVENT_DELETE](https://discord.com/developers/docs/topics/gateway-events#guild-scheduled-event-delete)           | ✅          |
+| [GUILD_SCHEDULED_EVENT_UPDATE](https://discord.com/developers/docs/topics/gateway-events#guild-scheduled-event-update)           | ✅          |
+| [GUILD_SCHEDULED_EVENT_USER_ADD](https://discord.com/developers/docs/topics/gateway-events#guild-scheduled-event-user-add)       | ✅          |
+| [GUILD_SCHEDULED_EVENT_USER_REMOVE](https://discord.com/developers/docs/topics/gateway-events#guild-scheduled-event-user-remove) | ✅          |
+| GUILD_SOUNDBOARD_SOUND_CREATE                                                                                                    | ❌          |
+| GUILD_SOUNDBOARD_SOUND_DELETE                                                                                                    | ❌          |
+| GUILD_SOUNDBOARD_SOUND_UPDATE                                                                                                    | ❌          |
+| GUILD_SOUNDBOARD_SOUNDS_UPDATE                                                                                                   | ❌          |
+| [GUILD_STICKERS_UPDATE](https://discord.com/developers/docs/topics/gateway-events#guild-stickers-update)                         | ✅          |
+| [GUILD_UPDATE](https://discord.com/developers/docs/topics/gateway-events#guild-update)                                           | ✅          |
+| [INTEGRATION_CREATE](https://discord.com/developers/docs/topics/gateway-events#integration-create)                               | ✅          |
+| [INTEGRATION_DELETE](https://discord.com/developers/docs/topics/gateway-events#integration-delete)                               | ✅          |
+| [INTERACTION_CREATE](https://discord.com/developers/docs/topics/gateway-events#interaction-create)                               | ✅          |
+| INTERACTION_FAILURE                                                                                                              | ❌          |
+| INTERACTION_IFRAME_MODAL_CREATE                                                                                                  | ❌          |
+| INTERACTION_MODAL_CREATE                                                                                                         | ❌          |
+| INTERACTION_SUCCESS                                                                                                              | ❌          |
+| LAST_MESSAGES                                                                                                                    | ❌          |
+| LIBRARY_APPLICATION_UPDATE                                                                                                       | ❌          |
+| LOBBY_CREATE                                                                                                                     | ❌          |
+| LOBBY_DELETE                                                                                                                     | ❌          |
+| LOBBY_MEMBER_CONNECT                                                                                                             | ❌          |
+| LOBBY_MEMBER_DISCONNECT                                                                                                          | ❌          |
+| LOBBY_MEMBER_UPDATE                                                                                                              | ❌          |
+| LOBBY_MESSAGE                                                                                                                    | ❌          |
+| LOBBY_UPDATE                                                                                                                     | ❌          |
+| LOBBY_VOICE_SERVER_UPDATE                                                                                                        | ❌          |
+| LOBBY_VOICE_STATE_UPDATE                                                                                                         | ❌          |
+| MESSAGE_ACK                                                                                                                      | ❌          |
+| [MESSAGE_CREATE](https://discord.com/developers/docs/topics/gateway-events#message-create)                                       | ✅          |
+| [MESSAGE_DELETE](https://discord.com/developers/docs/topics/gateway-events#message-delete)                                       | ✅          |
+| [MESSAGE_DELETE_BULK](https://discord.com/developers/docs/topics/gateway-events#message-delete-bulk)                             | ✅          |
+| [MESSAGE_REACTION_ADD](https://discord.com/developers/docs/topics/gateway-events#message-reaction-add)                           | ✅          |
+| MESSAGE_REACTION_ADD_MANY                                                                                                        | ❌          |
+| [MESSAGE_REACTION_REMOVE](https://discord.com/developers/docs/topics/gateway-events#message-reaction-remove)                     | ✅          |
+| [MESSAGE_REACTION_REMOVE_ALL](https://discord.com/developers/docs/topics/gateway-events#message-reaction-remove-all)             | ✅          |
+| [MESSAGE_REACTION_REMOVE_EMOJI](https://discord.com/developers/docs/topics/gateway-events#message-reaction-remove-emoji)         | ✅          |
+| [MESSAGE_UPDATE](https://discord.com/developers/docs/topics/gateway-events#message-update)                                       | ✅          |
+| NOTIFICATION_CENTER_ITEM_COMPLETED                                                                                               | ❌          |
+| NOTIFICATION_CENTER_ITEM_CREATE                                                                                                  | ❌          |
+| NOTIFICATION_CENTER_ITEM_DELETE                                                                                                  | ❌          |
+| NOTIFICATION_CENTER_ITEMS_ACK                                                                                                    | ❌          |
+| OAUTH2_TOKEN_REVOKE                                                                                                              | ❌          |
+| PASSIVE_UPDATE_V1                                                                                                                | ❌          |
+| PAYMENT_UPDATE                                                                                                                   | ❌          |
+| [PRESENCE_UPDATE](https://discord.com/developers/docs/topics/gateway-events#presence-update)                                     | ✅          |
+| PRESENCES_REPLACE                                                                                                                | ❌          |
+| PRIVATE_CHANNEL_INTEGRATION_CREATE                                                                                               | ❌          |
+| PRIVATE_CHANNEL_INTEGRATION_DELETE                                                                                               | ❌          |
+| PRIVATE_CHANNEL_INTEGRATION_UPDATE                                                                                               | ❌          |
+| [READY](https://discord.com/developers/docs/topics/gateway-events#ready)                                                         | ✅*         |
+| [READY_SUPPLEMENTAL](./ready_supplemental.md)                                                                                    | ❌          |
+| RECENT_MENTION_DELETE                                                                                                            | ❌          |
+| RELATIONSHIP_ADD                                                                                                                 | ❌          |
+| RELATIONSHIP_REMOVE                                                                                                              | ❌          |
+| RELATIONSHIP_UPDATE                                                                                                              | ❌          |
+| RESUMED                                                                                                                          | ❌          |
+| SESSIONS_REPLACE                                                                                                                 | ❌          |
+| SOUNDBOARD_SOUNDS                                                                                                                | ❌          |
+| SPEED_TEST_CREATE                                                                                                                | ❌          |
+| SPEED_TEST_DELETE                                                                                                                | ❌          |
+| SPEED_TEST_SERVER_UPDATE                                                                                                         | ❌          |
+| SPEED_TEST_UPDATE                                                                                                                | ❌          |
+| [STAGE_INSTANCE_CREATE](https://discord.com/developers/docs/topics/gateway-events#stage-instance-create)                         | ✅          |
+| [STAGE_INSTANCE_DELETE](https://discord.com/developers/docs/topics/gateway-events#stage-instance-delete)                         | ✅          |
+| [STAGE_INSTANCE_UPDATE](https://discord.com/developers/docs/topics/gateway-events#stage-instance-update)                         | ✅          |
+| STREAM_CREATE                                                                                                                    | ❌          |
+| STREAM_DELETE                                                                                                                    | ❌          |
+| STREAM_SERVER_UPDATE                                                                                                             | ❌          |
+| STREAM_UPDATE                                                                                                                    | ❌          |
+| [THREAD_CREATE](https://discord.com/developers/docs/topics/gateway-events#thread-create)                                         | ✅          |
+| [THREAD_DELETE](https://discord.com/developers/docs/topics/gateway-events#thread-delete)                                         | ✅          |
+| [THREAD_LIST_SYNC](https://discord.com/developers/docs/topics/gateway-events#thread-list-sync)                                   | ✅*         |
+| [THREAD_MEMBER_LIST_UPDATE](./threads.md#thread-member-list-update)                                                              | ❌          |
+| [THREAD_MEMBER_UPDATE](https://discord.com/developers/docs/topics/gateway-events#thread-member-update)                           | ✅          |
+| [THREAD_MEMBERS_UPDATE](https://discord.com/developers/docs/topics/gateway-events#thread-members-update)                         | ✅          |
+| [THREAD_UPDATE](https://discord.com/developers/docs/topics/gateway-events#thread-update)                                         | ✅          |
+| [TYPING_START](https://discord.com/developers/docs/topics/gateway-events#typing-start)                                           | ✅          |
+| USER_ACHIEVEMENT_UPDATE                                                                                                          | ❌          |
+| USER_CONNECTIONS_LINK_CALLBACK                                                                                                   | ❌          |
+| USER_CONNECTIONS_UPDATE                                                                                                          | ❌          |
+| USER_GUILD_SETTINGS_UPDATE                                                                                                       | ❌          |
+| USER_NON_CHANNEL_ACK                                                                                                             | ❌          |
+| [USER_NOTE_UPDATE](./notes.md#user-note-update-dispatch-event)                                                                   | ❌          |
+| USER_PAYMENT_CLIENT_ADD                                                                                                          | ❌          |
+| USER_PAYMENT_SOURCES_UPDATE                                                                                                      | ❌          |
+| USER_PREMIUM_GUILD_SUBSCRIPTION_SLOT_CREATE                                                                                      | ❌          |
+| USER_PREMIUM_GUILD_SUBSCRIPTION_SLOT_UPDATE                                                                                      | ❌          |
+| [USER_REQUIRED_ACTION_UPDATE](./account_verification.md#user-required-action-update-dispatch-event)                              | ❌          |
+| USER_SETTINGS_PROTO_UPDATE                                                                                                       | ❌          |
+| USER_SUBSCRIPTIONS_UPDATE                                                                                                        | ❌          |
+| [USER_UPDATE](https://discord.com/developers/docs/topics/gateway-events#user-update)                                             | ✅          |
+| [VOICE_CHANNEL_EFFECT_SEND](./voice_channel_effects.md#voice-channel-effect-send-dispatch-event)                                 | ❌          |
+| [VOICE_SERVER_UPDATE](https://discord.com/developers/docs/topics/gateway-events#voice-server-update)                             | ✅          |
+| [VOICE_STATE_UPDATE](https://discord.com/developers/docs/topics/gateway-events#voice-state-update)                               | ✅          |
+| [WEBHOOKS_UPDATE](https://discord.com/developers/docs/topics/gateway-events#webhooks-update)                                     | ✅          |
+
+\* - undocumented extra fields
