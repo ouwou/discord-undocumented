@@ -13,7 +13,7 @@ since Discord hardcodes the `capabilities` value instead of using an enum so the
 | VERSIONED_READ_STATES                 | 1 << 2  |                                                       |
 | VERSIONED_USER_GUILD_SETTINGS         | 1 << 3  |                                                       |
 | DEDUPLICATE_USER_OBJECTS              | 1 << 4  |                                                       |
-| PRIORITIZED_READY_PAYLOAD             | 1 << 5  | responsible for sending `READY_SUPPLEMENTAL           |
+| PRIORITIZED_READY_PAYLOAD             | 1 << 5  | responsible for sending `READY_SUPPLEMENTAL`          |
 | MULTIPLE_GUILD_EXPERIMENT_POPULATIONS | 1 << 6  |                                                       |
 | NON_CHANNEL_READ_STATES               | 1 << 7  |                                                       |
 | AUTH_TOKEN_REFRESH                    | 1 << 8  |                                                       |
@@ -21,8 +21,9 @@ since Discord hardcodes the `capabilities` value instead of using an enum so the
 | CLIENT_STATE_V2                       | 1 << 10 | heavily alters the guild object                       |
 | PASSIVE_GUILD_UPDATE                  | 1 << 11 | causes the gateway to send `PASSIVE_UPDATE_V1` events |
 | Unnamed bit 12                        | 1 << 12 | unknown                                               |
+| Unnamed bit 13                        | 1 << 13 | causes gateway to send `MESSAGE_REACTION_ADD_MANY`    |
 
-As of June 2023, Discord uses 8189 which corresponds to all bits except NO_AFFINE_USER_IDS
+As of 3 July 2023, Discord uses 16381 which corresponds to all bits except NO_AFFINE_USER_IDS
 
 ## USER_SETTINGS_PROTO
 
@@ -91,3 +92,23 @@ Causes a `PASSIVE_UPDATE_V1` dispatch event to be sent periodically instead of `
 
 Behavior unknown. Only changed observed so far is `CALL_CREATE` events being fired for calls that are active at time of
 connection
+
+## Unnamed bit 13
+
+Causes the gateway to send `MESSAGE_REACTION_ADD_MANY` events.
+
+### MESSAGE_REACTION_ADD_MANY object
+
+| Field      | Type                                                    | Description                          |
+|------------|---------------------------------------------------------|--------------------------------------|
+| guild_id   | snowflake                                               | guild the message is in              |
+| channel_id | snowflake                                               | channel the message is in            |
+| message_id | snowflake                                               | message reactions are being added to |
+| reactions  | array of [many reaction](#many-reaction-object) objects | reactions that were added            |
+
+#### many reaction object
+
+| Field | Type                                                                                     | Description                  |
+|-------|------------------------------------------------------------------------------------------|------------------------------|
+| users | array of snowflake                                                                       | users who added the reaction |
+| emoji | partial [emoji](https://discord.com/developers/docs/resources/emoji#emoji-object) object | emoji information            |
