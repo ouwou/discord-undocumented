@@ -36,6 +36,8 @@ nav:
     - update_guild_mfa_level.md
   - Message:
     - search.md
+  - Other Topics:
+    - remote_auth.md
   - User:
     - notes.md
     - profile.md
