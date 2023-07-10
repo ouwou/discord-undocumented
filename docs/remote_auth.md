@@ -121,3 +121,17 @@ Response:
 | Field | Type | Description |
 |-------|------|-------------|
 | encrypted_token | string | encrypted token, decrypted like everything else |
+
+## REMOTE_AUTH_CANCEL
+
+The mobile device can cancel a pending remote auth login by sending a REMOTE_AUTH_CANCEL. The desktop receives a `cancel` event.
+
+### POST `/users/@me/remote-auth/cancel`
+
+| Field           | Type   | Description                       |
+|-----------------|--------|-----------------------------------|
+| handshake_token | string | token from REMOTE_AUTH_INITIALIZE |
+
+## `cancel`
+
+Received when the mobile devices cancels a login request. There is no extra data for this op.
