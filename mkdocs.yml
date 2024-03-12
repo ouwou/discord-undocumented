@@ -6,6 +6,9 @@ theme:
     scheme: slate
     primary: purple
 
+extra_css:
+  - stylesheets/extra.css
+
 nav:
   - index.md
   - Account:
@@ -45,6 +48,8 @@ nav:
     - user_guild_settings.md
     - voice_channel_effects.md
     - welcome_screen.md
+  - Voice:
+    - voice_gateway_opcodes.md
 
 plugins:
   - search
