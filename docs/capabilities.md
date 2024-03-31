@@ -3,25 +3,24 @@
 Capabilities is a field (`capabilities`) within the IDENTIFY payload that communicates what the client is "capable" of.
 Unfortunately this means Discord's API does weird things that don't match what the documentation says.
 
-The following table is adapted from [here](https://github.com/MateriiApps/OpenCord/blob/ca334e382d1feecafcb99c3758a5b1133d130b13/app/src/main/java/com/xinto/opencord/gateway/io/Capabilities.kt)
-since Discord hardcodes the `capabilities` value instead of using an enum so there are no official names.
+The following capability names are arbitrary and not taken from Discord since Discord does not name each bit, but hardcodes their value.
 
-| Key                                   | Value   | Description                                           |
-|---------------------------------------|---------|-------------------------------------------------------|
-| LAZY_USER_NOTES                       | 1 << 0  | don't send user notes in `READY`                      |
-| NO_AFFINE_USER_IDS                    | 1 << 1  |                                                       |
-| VERSIONED_READ_STATES                 | 1 << 2  |                                                       |
-| VERSIONED_USER_GUILD_SETTINGS         | 1 << 3  |                                                       |
-| DEDUPLICATE_USER_OBJECTS              | 1 << 4  |                                                       |
-| PRIORITIZED_READY_PAYLOAD             | 1 << 5  | responsible for sending `READY_SUPPLEMENTAL`          |
-| MULTIPLE_GUILD_EXPERIMENT_POPULATIONS | 1 << 6  |                                                       |
-| NON_CHANNEL_READ_STATES               | 1 << 7  |                                                       |
-| AUTH_TOKEN_REFRESH                    | 1 << 8  |                                                       |
-| USER_SETTINGS_PROTO                   | 1 << 9  | `user_settings` in the READY message will be omitted  |
-| CLIENT_STATE_V2                       | 1 << 10 | heavily alters the guild object                       |
-| PASSIVE_GUILD_UPDATE                  | 1 << 11 | causes the gateway to send `PASSIVE_UPDATE_V1` events |
-| Unnamed bit 12                        | 1 << 12 | unknown                                               |
-| Unnamed bit 13                        | 1 << 13 | causes gateway to send `MESSAGE_REACTION_ADD_MANY`    |
+| Key                                   | Value   | Description                                                                                                          |
+|---------------------------------------|---------|----------------------------------------------------------------------------------------------------------------------|
+| LAZY_USER_NOTES                       | 1 << 0  | don't send user notes in `READY`                                                                                     |
+| NO_AFFINE_USER_IDS                    | 1 << 1  |                                                                                                                      |
+| VERSIONED_READ_STATES                 | 1 << 2  |                                                                                                                      |
+| VERSIONED_USER_GUILD_SETTINGS         | 1 << 3  |                                                                                                                      |
+| DEDUPLICATE_USER_OBJECTS              | 1 << 4  |                                                                                                                      |
+| PRIORITIZED_READY_PAYLOAD             | 1 << 5  | responsible for sending `READY_SUPPLEMENTAL`                                                                         |
+| MULTIPLE_GUILD_EXPERIMENT_POPULATIONS | 1 << 6  |                                                                                                                      |
+| NON_CHANNEL_READ_STATES               | 1 << 7  |                                                                                                                      |
+| AUTH_TOKEN_REFRESH                    | 1 << 8  |                                                                                                                      |
+| USER_SETTINGS_PROTO                   | 1 << 9  | `user_settings` in the READY message will be omitted                                                                 |
+| CLIENT_STATE_V2                       | 1 << 10 | heavily alters the guild object                                                                                      |
+| PASSIVE_GUILD_UPDATE                  | 1 << 11 | causes the gateway to send `PASSIVE_UPDATE_V1` events                                                                |
+| AUTO_CALL_CONNECT                     | 1 << 12 | causes the gateway to send `CALL_CONNECT` for active calls at time of connection instead of requiring manual request |                                               |
+| DEBOUNCE_MESSAGE_REACTIONS            | 1 << 13 | causes gateway to send `MESSAGE_REACTION_ADD_MANY` instead of rapid `MESSAGE_REACTION_ADD` events                    |
 
 As of 3 July 2023, Discord uses 16381 which corresponds to all bits except NO_AFFINE_USER_IDS
 
