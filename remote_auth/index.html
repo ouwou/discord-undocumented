@@ -1,0 +1,1950 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../search/">
+      
+      
+        <link rel="next" href="../notes/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
+    
+    
+      
+        <title>Remote Auth (QR Code Login) - discord-undocumented</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#remote-auth-qr-code-login" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="discord-undocumented" class="md-header__button md-logo" aria-label="discord-undocumented" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            discord-undocumented
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Remote Auth (QR Code Login)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="discord-undocumented" class="md-nav__button md-logo" aria-label="discord-undocumented" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    discord-undocumented
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    discord-undocumented
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Account
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Account
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../account_verification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Account Verification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../affinities/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Affinities
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DMs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Gateway
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Gateway
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capabilities/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Capabilities
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gateway_events/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gateway Events
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gateway_opcodes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gateway Opcodes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ready_event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ready Event Extra Fields
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ready_supplemental/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ready Supplemental Event
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../slash_commands/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Slash Commands
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Guild
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Guild
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../create_guild/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create Guild Extra Parameters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../get_role_members/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Get Role Members
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bulk_member_role/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bulk Add Member Role
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guild_avatars/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Guild Avatars
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guild_directories/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Guild Directories
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guild_discovery/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Guild Discovery
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guild_lurking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Guild Lurking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../join_leave_guild/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Join/Leave Guild
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manage_discovery_partnership/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managing Guild Discovery and Partnership
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../member_verification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Member Verification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modify_guild/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modify Guild Extra Parameters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../role_member_counts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Get Role Member Counts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../threads/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Threads
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../update_guild_mfa_level/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Update Guild MFA Level
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Message
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Message
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Search Messages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Other Topics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Other Topics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Remote Auth (QR Code Login)
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Remote Auth (QR Code Login)
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hello" class="md-nav__link">
+    <span class="md-ellipsis">
+      hello
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#init" class="md-nav__link">
+    <span class="md-ellipsis">
+      init
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nonce_proof-server-to-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      nonce_proof (Server to client)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nonce_proof-client-to-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      nonce_proof (Client to server)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pending_remote_init" class="md-nav__link">
+    <span class="md-ellipsis">
+      pending_remote_init
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote_auth_initialize" class="md-nav__link">
+    <span class="md-ellipsis">
+      REMOTE_AUTH_INITIALIZE
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="REMOTE_AUTH_INITIALIZE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-usersmeremote-auth" class="md-nav__link">
+    <span class="md-ellipsis">
+      POST /users/@me/remote-auth
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pending_ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      pending_ticket
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="pending_ticket">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encrypted-user-payload" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encrypted user payload
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote_auth_finish" class="md-nav__link">
+    <span class="md-ellipsis">
+      REMOTE_AUTH_FINISH
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="REMOTE_AUTH_FINISH">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-usersmeremote-authfinish" class="md-nav__link">
+    <span class="md-ellipsis">
+      POST /users/@me/remote-auth/finish
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pending_login" class="md-nav__link">
+    <span class="md-ellipsis">
+      pending_login
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote_auth_login" class="md-nav__link">
+    <span class="md-ellipsis">
+      REMOTE_AUTH_LOGIN
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="REMOTE_AUTH_LOGIN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-usersmeremote-authlogin" class="md-nav__link">
+    <span class="md-ellipsis">
+      POST /users/@me/remote-auth/login
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote_auth_cancel" class="md-nav__link">
+    <span class="md-ellipsis">
+      REMOTE_AUTH_CANCEL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="REMOTE_AUTH_CANCEL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-usersmeremote-authcancel" class="md-nav__link">
+    <span class="md-ellipsis">
+      POST /users/@me/remote-auth/cancel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cancel" class="md-nav__link">
+    <span class="md-ellipsis">
+      cancel
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    User
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            User
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../profile/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Profiles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../relationships/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Relationships
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_guild_settings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Guild Settings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../voice_channel_effects/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Voice channel effects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../welcome_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome Screen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Voice
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Voice
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../voice_gateway_opcodes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Voice Gateway Opcodes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hello" class="md-nav__link">
+    <span class="md-ellipsis">
+      hello
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#init" class="md-nav__link">
+    <span class="md-ellipsis">
+      init
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nonce_proof-server-to-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      nonce_proof (Server to client)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nonce_proof-client-to-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      nonce_proof (Client to server)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pending_remote_init" class="md-nav__link">
+    <span class="md-ellipsis">
+      pending_remote_init
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote_auth_initialize" class="md-nav__link">
+    <span class="md-ellipsis">
+      REMOTE_AUTH_INITIALIZE
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="REMOTE_AUTH_INITIALIZE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-usersmeremote-auth" class="md-nav__link">
+    <span class="md-ellipsis">
+      POST /users/@me/remote-auth
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pending_ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      pending_ticket
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="pending_ticket">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encrypted-user-payload" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encrypted user payload
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote_auth_finish" class="md-nav__link">
+    <span class="md-ellipsis">
+      REMOTE_AUTH_FINISH
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="REMOTE_AUTH_FINISH">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-usersmeremote-authfinish" class="md-nav__link">
+    <span class="md-ellipsis">
+      POST /users/@me/remote-auth/finish
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pending_login" class="md-nav__link">
+    <span class="md-ellipsis">
+      pending_login
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote_auth_login" class="md-nav__link">
+    <span class="md-ellipsis">
+      REMOTE_AUTH_LOGIN
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="REMOTE_AUTH_LOGIN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-usersmeremote-authlogin" class="md-nav__link">
+    <span class="md-ellipsis">
+      POST /users/@me/remote-auth/login
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote_auth_cancel" class="md-nav__link">
+    <span class="md-ellipsis">
+      REMOTE_AUTH_CANCEL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="REMOTE_AUTH_CANCEL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-usersmeremote-authcancel" class="md-nav__link">
+    <span class="md-ellipsis">
+      POST /users/@me/remote-auth/cancel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cancel" class="md-nav__link">
+    <span class="md-ellipsis">
+      cancel
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="remote-auth-qr-code-login">Remote Auth (QR Code Login)</h1>
+<p>Remote auth lets you log into Discord on desktop by scanning a QR code on your phone.</p>
+<p>On desktop, Discord firsts open a WebSocket connection to <code>REMOTE_AUTH_ENDPOINT</code>, currently <code>wss://remote-auth-gateway.discord.gg/?v=2</code></p>
+<details class="info" open="open">
+<summary>Info</summary>
+<p>Unlike the normal Discord gateway, data fields do not belong to a <code>d</code> sub-object; all fields are at the top level, next to <code>op</code>. For example, the <code>hello</code> opcode looks like this:
+ <div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;op&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hello&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timeout_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">123456</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;heartbeat_interval&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">41250</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</details>
+<p>On open, the gateway sends opcode <code>hello</code>.</p>
+<h2 id="hello"><code>hello</code></h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>timeout_ms</td>
+<td>integer</td>
+<td>milliseconds until the client should disconnect with <code>4003 Handshake Timeout</code></td>
+</tr>
+<tr>
+<td>heartbeat_interval</td>
+<td>integer</td>
+<td>milliseconds interval for sending <code>heartbeat</code> ops</td>
+</tr>
+</tbody>
+</table>
+<p>When the desktop receives <code>hello</code>, it uses the SubtleCrypto interface to generate a 2048-bit RSA key and encodes the public key in SubjectPublicKeyInfo format.</p>
+<p>The desktop then sends an opcode <code>init</code>.</p>
+<h2 id="init"><code>init</code></h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>encoded_public_key</td>
+<td>string</td>
+<td>base64-encoded public key</td>
+</tr>
+</tbody>
+</table>
+<p>The gateway responds with opcode <code>nonce_proof</code>.</p>
+<h2 id="nonce_proof-server-to-client"><code>nonce_proof</code> (Server to client)</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>encrypted_nonce</td>
+<td>string</td>
+<td>base64-encoded encrypted nonce</td>
+</tr>
+</tbody>
+</table>
+<p>The desktop decrypts it with its private key using OAEP and sends back a <code>nonce_proof</code>.</p>
+<h2 id="nonce_proof-client-to-server"><code>nonce_proof</code> (Client to server)</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nonce</td>
+<td>string</td>
+<td>base64-encoded decrypted nonce</td>
+</tr>
+</tbody>
+</table>
+<p>The gateway responds with <code>pending_remote_init</code> and then the next stop involves scanning the QR code.</p>
+<h2 id="pending_remote_init"><code>pending_remote_init</code></h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fingerprint</td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The QR code is generated using the string <code>https://discord.com/ra/{fingerprint}</code>.</p>
+<p>When a mobile device scans the QR code, it extracts the fingerprint from the url and makes a REMOTE_AUTH_INITIALIZE request.</p>
+<h2 id="remote_auth_initialize">REMOTE_AUTH_INITIALIZE</h2>
+<h3 id="post-usersmeremote-auth">POST <code>/users/@me/remote-auth</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fingerprint</td>
+<td>string</td>
+<td>fingerprint from the QR code</td>
+</tr>
+</tbody>
+</table>
+<p>Return value:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>handshake_token</td>
+<td>string</td>
+<td>temporary token to finalize login</td>
+</tr>
+</tbody>
+</table>
+<p>After the mobile device makes this request, the remote auth gateway sends a <code>pending_ticket</code> to the desktop.</p>
+<h2 id="pending_ticket"><code>pending_ticket</code></h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>encrypted_user_payload</td>
+<td>string</td>
+<td>encrypted user payload described below</td>
+</tr>
+</tbody>
+</table>
+<h3 id="encrypted-user-payload">Encrypted user payload</h3>
+<p><code>&lt;user id&gt;:&lt;discriminator&gt;:&lt;avatar hash&gt;:&lt;username&gt;</code></p>
+<p>The mobile device then confirms the login request with a REMOTE_AUTH_FINISH request.</p>
+<h2 id="remote_auth_finish">REMOTE_AUTH_FINISH</h2>
+<h3 id="post-usersmeremote-authfinish">POST <code>/users/@me/remote-auth/finish</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>handshake_token</td>
+<td>string</td>
+<td>token from REMOTE_AUTH_INITIALIZE</td>
+</tr>
+<tr>
+<td>temporary</td>
+<td>boolean</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p>After the mobile device sends a REMOTE_AUTH_FINISH, the gateway sends a <code>pending_login</code> to the desktop and the websocket is closed.</p>
+<h2 id="pending_login"><code>pending_login</code></h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ticket</td>
+<td>string</td>
+<td>ticket to use for obtaining the token</td>
+</tr>
+</tbody>
+</table>
+<h2 id="remote_auth_login">REMOTE_AUTH_LOGIN</h2>
+<p>After getting the ticket, the desktop makes one last request to get the token</p>
+<h3 id="post-usersmeremote-authlogin">POST <code>/users/@me/remote-auth/login</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ticket</td>
+<td>string</td>
+<td>ticket from <code>pending_login</code></td>
+</tr>
+</tbody>
+</table>
+<p>Response:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>encrypted_token</td>
+<td>string</td>
+<td>encrypted token, decrypted like everything else</td>
+</tr>
+</tbody>
+</table>
+<h2 id="remote_auth_cancel">REMOTE_AUTH_CANCEL</h2>
+<p>The mobile device can cancel a pending remote auth login by sending a REMOTE_AUTH_CANCEL. The desktop receives a <code>cancel</code> event.</p>
+<h3 id="post-usersmeremote-authcancel">POST <code>/users/@me/remote-auth/cancel</code></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>handshake_token</td>
+<td>string</td>
+<td>token from REMOTE_AUTH_INITIALIZE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cancel"><code>cancel</code></h2>
+<p>Received when the mobile device cancels a login request. There is no extra data for this op.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.bd41221c.min.js"></script>
+      
+    
+  </body>
+</html>
